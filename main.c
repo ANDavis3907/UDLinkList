@@ -8,6 +8,9 @@ struct Node {
     struct Node* next;
 };
 
+// Forward declaration of printList function
+void printList(struct Node* head);
+
 //function to create a new node
 struct Node* createNode(int data) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
@@ -25,6 +28,8 @@ void push(struct  Node** head, int data) {
     struct Node* newNode = createNode(data);
     newNode->next = *head;
     *head = newNode;
+    printf("Node inserted successfully\n");
+    printList(*head);
 }
 
 //function to delete a node from the beginning of the list
@@ -36,6 +41,8 @@ void pop(struct Node** head) {
     struct Node* temp = *head;
     *head = (*head)->next;
     free(temp);
+    printf("Node deleted successfully\n");
+    printList(*head);
 }
 
 //function to delete a node from the end of the list
@@ -47,6 +54,8 @@ void deleteFromEnd(struct Node** head) {
     if ((*head)->next == NULL) {
         free(*head);
         *head = NULL;
+        printf("Node deleted successfully\n");
+        printList(*head);
         return;
     }
     struct Node* temp = *head;
@@ -55,6 +64,8 @@ void deleteFromEnd(struct Node** head) {
     }
     free(temp->next);
     temp->next = NULL;
+    printf("Node deleted successfully\n");
+    printList(*head);
 }
 
 //function to delete a node by index
@@ -78,6 +89,8 @@ void deleteByIndex(struct Node** head, int index) {
     struct Node* to_delete = temp->next;
     temp->next = temp->next->next;
     free(to_delete);
+    printf("Node deleted successfully\n");
+    printList(*head);
 }
 
 //function to delete a node by value
@@ -101,6 +114,8 @@ void deleteByValue(struct Node** head, int value) {
     struct Node* to_delete = temp->next;
     temp->next = temp->next->next;
     free(to_delete);
+    printf("Node deleted successfully\n");
+    printList(*head);
 }
 
 //function to search for a value in the list
@@ -127,25 +142,27 @@ void printList(struct Node* head) {
     printf("\n");
 }
 
-//function to write values to a file
-void writeToFile(struct Node* head, char* filename) {
+//function to read values from a file
+void readFromFile(struct Node** head, const char* filename) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        printf("Error opening file.\n");
+        printf("Error opening file\n");
         return;
     }
     int data;
     while (fscanf(file, "%d", &data) != EOF) {
-        push(&head, data);
+        push(head, data);
     }
     fclose(file);
+    printf("Data read from file successfully\n");
+    printList(*head);
 }
 
-//function to read values from a file
-void readFromFile(struct Node** head, const char* filename) {
+//function to write values to a file
+void writeToFile(struct Node* head, const char* filename) {
     FILE* file = fopen(filename, "w");
     if (file == NULL) {
-        printf("Error opening file\n");
+        printf("Error opening file.\n");
         return;
     }
     struct Node* temp = head;
@@ -155,10 +172,12 @@ void readFromFile(struct Node** head, const char* filename) {
     }
     fprintf(file, "\n");
     fclose(file);
+    printf("Data written to file successfully\n");
+    printList(head);
 }
 
 int main() {
-    struct node* head = NULL;
+    struct Node* head = NULL;
     int choice, data, index, value;
     char filename[100];
 
@@ -168,7 +187,7 @@ int main() {
         printf("3. Delete from end\n");
         printf("4. Delete by index\n");
         printf("5. Delete by value\n");
-        pritnf("6. Search\n");
+        printf("6. Search\n");
         printf("7. Print list\n");
         printf("8. Write to file\n");
         printf("9. Read from file\n");
@@ -217,9 +236,9 @@ int main() {
                 writeToFile(head, filename);
                 break;
             case 9:
-                printf("Enter filename to write to: ");
+                printf("Enter filename to read from: ");
                 scanf("%s", filename);
-                writeToFile(&head, filename);
+                readFromFile(&head, filename);
                 break;
             case 10:
                 exit(0);
