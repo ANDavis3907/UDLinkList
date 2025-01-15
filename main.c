@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//This C program allows the user to create and modify a linked list.
 
 //structure for a node in the linked list
 struct Node {
@@ -193,12 +194,23 @@ int main() {
         printf("9. Read from file\n");
         printf("10. Exit\n");
         printf("Enter your selection: ");
-        scanf("%d", &choice);
+
+        // check if the input is an integer
+        if (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Please enter an integer.\n");
+            // clear the input buffer
+            while (getchar() != '\n');
+            continue;
+        }
 
         switch (choice) {
             case 1:
                 printf("Enter data to push: ");
-                scanf("%d", &data);
+                if (scanf("%d", &data) != 1) {
+                    printf("Invalid input. Please enter an integer.\n");
+                    while (getchar() != '\n');
+                    continue;
+                }
                 push(&head, data);
                 break;
             case 2:
@@ -231,7 +243,7 @@ int main() {
                 printList(head);
                 break;
             case 8:
-                printf("Enter filename: ");
+                printf("Enter filename to write from: ");
                 scanf("%s", filename);
                 writeToFile(head, filename);
                 break;
