@@ -1,3 +1,22 @@
+UDLinkList
+A custom implementation of a singly linked list in C, developed to demonstrate proficiency in manual memory management and persistent data structures.
+
+Engineering Highlights
+Dynamic Memory Allocation: Implements manual heap management using malloc and free, including robust error handling for allocation failures and null-pointer exceptions.
+Data Serialization: Developed custom File I/O routines to serialize the in-memory linked list to a .txt format and reconstruct the structure via deserialization.
+Pointer Logic: Features high-performance routines for:
+   Positional insertion/deletion (Head, End, and Index-based).
+   Value-based node removal.
+   Linear search optimization.
+Environment: Configured for GCC build automation via VS Code task integration.
+
+Technical Specifications
+Language: C 
+Data Structure: Singly Linked List (Pointer-based)
+Storage: Flat-file persistence
+
+
+
 # UDLinkList
 C Program will implement a user-defined linked list
 
